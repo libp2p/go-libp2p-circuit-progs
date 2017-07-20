@@ -36,8 +36,8 @@ Listening at /ip4/127.0.0.1/tcp/9001/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENq
 
 Use the echo client to talk to an echo server:
 ```sh
-$ relay-echoc /ip4/127.0.0.1/tcp/9001/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe/p2p-circuit/ipfs/QmUB1XXEDrXZqXGTDBNtcniUNv9ZAE8bEZnqCoYVXyV6Bc "hell world"
-Peer says: hell world
+$ relay-echoc /ip4/127.0.0.1/tcp/9001/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe/p2p-circuit/ipfs/QmUB1XXEDrXZqXGTDBNtcniUNv9ZAE8bEZnqCoYVXyV6Bc "hello world"
+Peer says: hello world
 OK
 
 ```
