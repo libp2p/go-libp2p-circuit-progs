@@ -31,7 +31,7 @@ Relay addresses:
 Start an echo server reachable through relay:
 ```sh
 $ relay-echod /ip4/127.0.0.1/tcp/9001/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe
-Listening at /ip4/127.0.0.1/tcp/9001/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe/p2p-circuit/ipfs/QmUB1XXEDrXZqXGTDBNtcniUNv9ZAE8bEZnqCoYVXyV6Bc
+Listening at /p2p-circuit/ipfs/QmUB1XXEDrXZqXGTDBNtcniUNv9ZAE8bEZnqCoYVXyV6Bc
 ```
 
 Use the echo client to talk to an echo server:

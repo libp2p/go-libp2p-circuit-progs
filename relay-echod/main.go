@@ -79,12 +79,12 @@ func main() {
 	}
 	cancel()
 
-	fmt.Printf("Listening at %s/p2p-circuit/ipfs/%s\n", raddr.String(), id.Pretty())
+	fmt.Printf("Listening at /p2p-circuit/ipfs/%s\n", id.Pretty())
 	select {}
 }
 
 func handleStream(s inet.Stream) {
-	log.Printf("New echo stream from %s/%s", s.Conn().RemoteMultiaddr().String(), s.Conn().RemotePeer().Pretty())
+	log.Printf("New echo stream from %s", s.Conn().RemoteMultiaddr().String())
 	defer s.Close()
 	count, err := io.Copy(s, s)
 	if err != nil {
