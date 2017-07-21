@@ -18,7 +18,8 @@ import (
 )
 
 func main() {
-	port := flag.Int("l", 9001, "Relay listen port")
+	port := flag.Int("l", 9001, "Relay TCP listen port")
+	wsport := flag.Int("ws", 9002, "Relay WS listen port")
 	flag.Parse()
 
 	if len(flag.Args()) != 0 {
@@ -33,6 +34,11 @@ func main() {
 	}
 
 	ip6addr, err := ma.NewMultiaddr(fmt.Sprintf("/ip6/::/tcp/%d", *port))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	wsaddr, err := ma.NewMultiaddr(fmt.Sprintf("/ip4/0.0.0.0/tcp/%d/ws", *wsport))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,7 +60,7 @@ func main() {
 	ctx := context.Background()
 	netw, err := swarm.NewNetwork(
 		ctx,
-		[]ma.Multiaddr{ip4addr, ip6addr},
+		[]ma.Multiaddr{ip4addr, ip6addr, wsaddr},
 		id,
 		ps,
 		metrics.NewBandwidthCounter(),

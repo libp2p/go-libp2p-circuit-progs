@@ -25,7 +25,8 @@ Relay addresses:
 /ip4/127.0.0.1/tcp/9001/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe
 /ip4/10.0.1.30/tcp/9001/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe
 /ip6/::1/tcp/9001/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe
-
+/ip4/127.0.0.1/tcp/9002/ws/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe
+/ip4/10.0.1.30/tcp/9002/ws/ipfs/QmRhDVAfdaBw7zpk5jn4L4BcBJDH1DZrKBHENqUwAvjkRe
 ```
 
 Start an echo server reachable through relay:
