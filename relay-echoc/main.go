@@ -38,6 +38,12 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// need a binding to be able to dial ws addresses
+	wsaddr, err := ma.NewMultiaddr("/ip4/0.0.0.0/tcp/0/ws")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	privk, pubk, err := crypto.GenerateKeyPair(crypto.RSA, 2048)
 	if err != nil {
 		log.Fatal(err)
@@ -56,7 +62,7 @@ func main() {
 
 	netw, err := swarm.NewNetwork(
 		ctx,
-		[]ma.Multiaddr{},
+		[]ma.Multiaddr{wsaddr},
 		id,
 		ps,
 		metrics.NewBandwidthCounter(),
