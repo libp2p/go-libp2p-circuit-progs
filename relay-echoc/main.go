@@ -10,13 +10,8 @@ import (
 	"os"
 	"time"
 
-	circuit "github.com/libp2p/go-libp2p-circuit"
-	crypto "github.com/libp2p/go-libp2p-crypto"
-	metrics "github.com/libp2p/go-libp2p-metrics"
-	peer "github.com/libp2p/go-libp2p-peer"
+	libp2p "github.com/libp2p/go-libp2p"
 	pstore "github.com/libp2p/go-libp2p-peerstore"
-	swarm "github.com/libp2p/go-libp2p-swarm"
-	bhost "github.com/libp2p/go-libp2p/p2p/host/basic"
 	ma "github.com/multiformats/go-multiaddr"
 )
 
@@ -37,42 +32,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// need a binding to be able to dial ws addresses
-	wsaddr, err := ma.NewMultiaddr("/ip4/0.0.0.0/tcp/0/ws")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	privk, pubk, err := crypto.GenerateKeyPair(crypto.RSA, 2048)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	id, err := peer.IDFromPrivateKey(privk)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	ps := pstore.NewPeerstore()
-	ps.AddPrivKey(id, privk)
-	ps.AddPubKey(id, pubk)
-
 	ctx := context.Background()
-
-	netw, err := swarm.NewNetwork(
+	host, err := libp2p.New(
 		ctx,
-		[]ma.Multiaddr{wsaddr},
-		id,
-		ps,
-		metrics.NewBandwidthCounter(),
+		libp2p.ListenAddrStrings("/ip4/0.0.0.0/tcp/0/ws"),
+		libp2p.EnableRelay(),
 	)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	host := bhost.New(netw)
-	err = circuit.AddRelayTransport(ctx, host)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -80,7 +45,7 @@ func main() {
 	rctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	err = host.Connect(rctx, pstore.PeerInfo{pinfo.ID, []ma.Multiaddr{paddr}})
+	err = host.Connect(rctx, pstore.PeerInfo{ID: pinfo.ID, Addrs: []ma.Multiaddr{paddr}})
 	if err != nil {
 		log.Fatal(err)
 	}
